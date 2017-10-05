@@ -11,7 +11,6 @@ use League\Flysystem\Exception;
 use League\Flysystem\NotSupportedException;
 use League\Flysystem\UnreadableFileException;
 use League\Flysystem\Util;
-use LogicException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
@@ -69,7 +68,7 @@ class Local extends AbstractAdapter
      * @param int    $linkHandling
      * @param array  $permissions
      *
-     * @throws LogicException
+     * @throws Exception
      */
     public function __construct($root, $writeFlags = LOCK_EX, $linkHandling = self::DISALLOW_LINKS, array $permissions = [])
     {
@@ -78,7 +77,7 @@ class Local extends AbstractAdapter
         $this->ensureDirectory($root);
 
         if ( ! is_dir($root) || ! is_readable($root)) {
-            throw new LogicException('The root path ' . $root . ' is not readable.');
+            throw new Exception('The root path ' . $root . ' is not readable.');
         }
 
         $this->setPathPrefix($root);
@@ -126,8 +125,10 @@ class Local extends AbstractAdapter
         $location = $this->applyPathPrefix($path);
         $this->ensureDirectory(dirname($location));
 
-        if (($size = file_put_contents($location, $contents, $this->writeFlags)) === false) {
-            return false;
+        error_clear_last();
+        if (($size = @file_put_contents($location, $contents, $this->writeFlags)) === false) {
+            $error = error_get_last();
+            throw new Exception(sprintf("%s in file %s at line %s", $error['message'], $error['file'], $error['line']));
         }
 
         $type = 'file';
@@ -148,16 +149,19 @@ class Local extends AbstractAdapter
     {
         $location = $this->applyPathPrefix($path);
         $this->ensureDirectory(dirname($location));
-        $stream = fopen($location, 'w+b');
+        error_clear_last();
+        $stream = @fopen($location, 'w+b');
 
         if ( ! $stream) {
-            return false;
+            $error = error_get_last();
+            throw new Exception(sprintf("%s in file %s at line %s", $error['message'], $error['file'], $error['line']));
         }
 
         stream_copy_to_stream($resource, $stream);
 
         if ( ! fclose($stream)) {
-            return false;
+            $error = error_get_last();
+            throw new Exception(sprintf("%s in file %s at line %s", $error['message'], $error['file'], $error['line']));
         }
 
         if ($visibility = $config->get('visibility')) {
@@ -212,10 +216,11 @@ class Local extends AbstractAdapter
     public function read($path)
     {
         $location = $this->applyPathPrefix($path);
-        $contents = file_get_contents($location);
+        $contents = @file_get_contents($location);
 
         if ($contents === false) {
-            return false;
+            $error = error_get_last();
+            throw new AdapterException($error['message'] . ' File ' . $error['file'] . ' Line ' . $error['line']);
         }
 
         return ['type' => 'file', 'path' => $path, 'contents' => $contents];

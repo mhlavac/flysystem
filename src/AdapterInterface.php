@@ -21,8 +21,8 @@ interface AdapterInterface extends ReadInterface
      * @param string $contents
      * @param Config $config   Config object
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return array|false false on failure file meta data on success
      */
@@ -35,8 +35,8 @@ interface AdapterInterface extends ReadInterface
      * @param resource $resource
      * @param Config   $config   Config object
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return array|false false on failure file meta data on success
      */
@@ -49,8 +49,8 @@ interface AdapterInterface extends ReadInterface
      * @param string $contents
      * @param Config $config   Config object
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return array|false false on failure file meta data on success
      *
@@ -64,8 +64,8 @@ interface AdapterInterface extends ReadInterface
      * @param resource $resource
      * @param Config   $config   Config object
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return array|false false on failure file meta data on success
      */
@@ -77,8 +77,8 @@ interface AdapterInterface extends ReadInterface
      * @param string $path
      * @param string $newpath
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return bool
      */
@@ -90,8 +90,8 @@ interface AdapterInterface extends ReadInterface
      * @param string $path
      * @param string $newpath
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return bool
      */
@@ -102,8 +102,8 @@ interface AdapterInterface extends ReadInterface
      *
      * @param string $path
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return bool
      */
@@ -114,8 +114,8 @@ interface AdapterInterface extends ReadInterface
      *
      * @param string $dirname
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return bool
      */
@@ -127,8 +127,8 @@ interface AdapterInterface extends ReadInterface
      * @param string $dirname directory name
      * @param Config $config
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return array|false
      */
@@ -140,8 +140,8 @@ interface AdapterInterface extends ReadInterface
      * @param string $path
      * @param string $visibility
      *
-     * @throws AdapterException    If a low-level, adapter-specific error occurs
-     *                             (disk full, permission denied, network error, ...)
+     * @throws Exception If a low-level, adapter-specific error occurs
+     *                   (disk full, permission denied, network error, ...)
      *
      * @return array|false file meta data
      */
