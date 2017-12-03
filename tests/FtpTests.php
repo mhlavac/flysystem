@@ -389,7 +389,7 @@ function ftp_set_option($connection, $option, $value)
 
 class FtpTests extends TestCase
 {
-    use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration, \PHPUnitExpectedExceptionHack;
+    use \PHPUnitHacks;
 
     protected $options = [
         'host' => 'example.org',
@@ -469,7 +469,7 @@ class FtpTests extends TestCase
     {
         putenv('FTP_CLOSE_THROW=DISCONNECT_RETHROW');
 
-        $this->setExpectedException('ErrorException');
+        $this->expectException('ErrorException');
         $adapter = new Ftp(array_merge($this->options, ['host' => 'disconnect.check']));
         $adapter->connect();
         $adapter->isConnected();
